@@ -64,8 +64,7 @@ func (this *wafOpenapiClient) getInstanceId() *string {
 
 func (this *wafOpenapiClient) DescribeInstanceInfo() (resp *waf_openapi20190910.DescribeInstanceInfoResponse, err error) {
 	r := &waf_openapi20190910.DescribeInstanceInfoRequest{}
-	resp, err = this.client.DescribeInstanceInfo(r)
-	if err != nil {
+	if resp, err = this.client.DescribeInstanceInfo(r); err != nil {
 		return
 	}
 	if resp.Body.InstanceInfo == nil || resp.Body.InstanceInfo.PayType == tea.Int32(0) || resp.Body.InstanceInfo.InstanceId == nil {
@@ -90,7 +89,9 @@ func (this *wafOpenapiClient) CreateCertificate(domain, certificate, privateKey,
 		InstanceId:      this.getInstanceId(),
 		PrivateKey:      tea.String(privateKey),
 	}
-	resp, err = this.client.CreateCertificate(r)
+	if resp, err = this.client.CreateCertificate(r); err != nil {
+		return
+	}
 	if resp.Body.CertificateId == nil {
 		return nil, errors.New("上传失败")
 	}
