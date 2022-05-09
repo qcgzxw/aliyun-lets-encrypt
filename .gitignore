@@ -1,3 +1,6 @@
 .idea
 AliyunLetsEncrypt
 main
+*.cer
+*.key
+*.pem

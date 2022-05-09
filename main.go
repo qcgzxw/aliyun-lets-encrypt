@@ -12,6 +12,7 @@ func main() {
 	// args3: domain
 	// args4: certificate path
 	// args5: privateKey path
+	const DEFAULT_REGION = "cn-hangzhou"
 
 	argsWithoutProg := os.Args[1:]
 	if len(argsWithoutProg) < 5 {
@@ -31,7 +32,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	wafClient, err := aliyun.CreateWafOpenapiClient("", &accessKeyId, &accessKeySecret)
+	wafClient, err := aliyun.CreateWafOpenapiClient(DEFAULT_REGION, &accessKeyId, &accessKeySecret)
 	if err != nil {
 		panic(err)
 	}
