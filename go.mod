@@ -3,6 +3,7 @@ module AliyunLetsEncrypt
 go 1.18
 
 require (
+	github.com/alibabacloud-go/cas-20180713 v1.0.0
 	github.com/alibabacloud-go/darabonba-openapi v0.1.18
 	github.com/alibabacloud-go/tea v1.1.17
 	github.com/alibabacloud-go/waf-openapi-20190910 v1.1.8

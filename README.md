@@ -28,8 +28,10 @@ AliyunLetsEncrypt LTAI5t*********TBXQtxPk SdanEjbj2**********u1sHH www.qcgzxw.cn
 ### 子用户创建
 ![](https://cdn.jsdelivr.net/gh/image-backup/qcgzxw-images@master/image/16521030671371652103066697.png)
 ### 子用户添加权限
+需要添加上传证书的权限和访问WAF权限
 ![](https://cdn.jsdelivr.net/gh/image-backup/qcgzxw-images@master/image/16521029601341652102959382.png)
 ![](https://cdn.jsdelivr.net/gh/image-backup/qcgzxw-images@master/image/16521030311341652103030317.png)
+![](https://cdn.jsdelivr.net/gh/image-backup/qcgzxw-images@master/image/16521635372511652163536440.png)
 
 ## 更新日志
 ### ver 0.1
@@ -37,6 +39,7 @@ AliyunLetsEncrypt LTAI5t*********TBXQtxPk SdanEjbj2**********u1sHH www.qcgzxw.cn
 
 ## todo
 - [x] 阿里云WAF
+- [ ] 多域名支持
 - [ ] 阿里云CDN 
 - [ ] 打印日志
 - [ ] 优化命令行模式

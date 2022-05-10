@@ -1,6 +1,6 @@
 package models
 
-var REGIONS = map[string]string{
+var WAF_REGIONS = map[string]string{
 	"cn-qingdao":            "wafopenapi.cn-hangzhou.aliyuncs.com",
 	"cn-beijing":            "wafopenapi.cn-hangzhou.aliyuncs.com",
 	"cn-zhangjiakou":        "wafopenapi.cn-hangzhou.aliyuncs.com",

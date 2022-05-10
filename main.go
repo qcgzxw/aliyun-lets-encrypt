@@ -2,6 +2,7 @@ package main
 
 import (
 	"AliyunLetsEncrypt/aliyun"
+	"github.com/alibabacloud-go/tea/tea"
 	"io/ioutil"
 	"os"
 )
@@ -12,7 +13,6 @@ func main() {
 	// args3: domain
 	// args4: certificate path
 	// args5: privateKey path
-	const DEFAULT_REGION = "cn-hangzhou"
 
 	argsWithoutProg := os.Args[1:]
 	if len(argsWithoutProg) < 5 {
@@ -32,11 +32,43 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	wafClient, err := aliyun.CreateWafOpenapiClient(DEFAULT_REGION, &accessKeyId, &accessKeySecret)
+	aliyunClient, err := aliyun.CreateAliyun(accessKeyId, accessKeySecret, "")
 	if err != nil {
 		panic(err)
 	}
-	_, err = wafClient.CreateCertificate(domain, string(certificate), string(privateKey), "")
+	waf, err := aliyunClient.CreateWafOpenapiClient()
+	if err != nil {
+		panic(err)
+	}
+	if resp, err := waf.DescribeDomainNames(); err != nil {
+		panic(err)
+	} else {
+		if len(resp.Body.DomainNames) == 0 {
+			panic("无法获取WAF域名列表")
+		}
+		for key, item := range resp.Body.DomainNames {
+			if domain == *item {
+				break
+			}
+			if key == len(resp.Body.DomainNames)-1 {
+				panic("域名未添加到WAF")
+			}
+		}
+	}
+	cas, err := aliyunClient.CreateCasOpenapiClient()
+	if err != nil {
+		panic(err)
+	}
+	var certId *int64
+	if resp, err := cas.CreateUserCertificate(nil, tea.String(string(certificate)), tea.String(string(privateKey))); err != nil {
+		panic(err)
+	} else {
+		if resp.Body == nil || resp.Body.CertId == nil {
+			panic("上传失败")
+		}
+		certId = resp.Body.CertId
+	}
+	_, err = waf.CreateCertificateByCertificateId(&domain, certId)
 	if err != nil {
 		panic(err)
 	}
